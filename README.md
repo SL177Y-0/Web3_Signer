@@ -1,3 +1,5 @@
+Dynamic Sdk has a bug for verify code for now , hoping for a fix in future 
+
 Live Link -- https://web3-signer-mu.vercel.app/
 
 # Web3 Message Signer & Verifier
