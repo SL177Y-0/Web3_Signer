@@ -26,14 +26,12 @@ export async function signMessageWithWallet(
       throw new Error('Wallet not connected')
     }
 
-    // Get the wallet client from Dynamic.xyz
+   
     const walletClient = await wallet.getWalletClient()
     
-    // Create ethers provider and signer
     const provider = new ethers.BrowserProvider(walletClient)
     const signer = await provider.getSigner()
     
-    // Sign the message
     const signature = await signer.signMessage(message)
     const signerAddress = await signer.getAddress()
 
