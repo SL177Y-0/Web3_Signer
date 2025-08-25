@@ -17,7 +17,7 @@ export async function verifySignature(
   signature: string
 ): Promise<VerificationResult> {
   try {
-    // Input validation
+
     if (!message || !signature) {
       return {
         isValid: false,
@@ -25,7 +25,6 @@ export async function verifySignature(
       };
     }
 
-    // Verify signature format
     if (!ethers.isHexString(signature)) {
       return {
         isValid: false,
@@ -33,11 +32,8 @@ export async function verifySignature(
       };
     }
 
-    // Use ethers.js to verify the message signature
-    // This will automatically handle the EIP-191 prefixing (\x19Ethereum Signed Message:\n)
     const recoveredSigner = ethers.verifyMessage(message, signature);
 
-    // Check if recovered address is valid
     if (!ethers.isAddress(recoveredSigner)) {
       return {
         isValid: false,
@@ -53,7 +49,6 @@ export async function verifySignature(
   } catch (error: any) {
     console.error('Signature verification failed:', error);
     
-    // Handle specific ethers errors
     if (error.code === 'INVALID_ARGUMENT') {
       return {
         isValid: false,
@@ -68,40 +63,9 @@ export async function verifySignature(
       };
     }
 
-    // Generic error handling
     return {
       isValid: false,
       error: error.message || 'Signature verification failed'
     };
   }
 }
-
-/**
- * Alternative verification method using viem (commented for reference)
- * This could be used instead of ethers.js for more modern Web3 support
- */
-/*
-import { verifyMessage, recoverMessageAddress } from 'viem';
-
-export async function verifySignatureWithViem(
-  message: string, 
-  signature: string
-): Promise<VerificationResult> {
-  try {
-    const recoveredAddress = await recoverMessageAddress({
-      message,
-      signature: signature as `0x${string}`
-    });
-
-    return {
-      isValid: true,
-      signer: recoveredAddress
-    };
-  } catch (error: any) {
-    return {
-      isValid: false,
-      error: error.message || 'Signature verification failed'
-    };
-  }
-}
-*/ 
