@@ -4,32 +4,32 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color tokens for Web3 dark theme with neon accents */
-  --background: oklch(0.12 0.02 264); /* Dark navy background */
-  --foreground: oklch(0.98 0 0); /* Pure white text */
-  --card: oklch(0.16 0.02 264); /* Slightly lighter card background */
-  --card-foreground: oklch(0.98 0 0); /* White text on cards */
-  --popover: oklch(0.16 0.02 264); /* Popover background */
-  --popover-foreground: oklch(0.98 0 0); /* Popover text */
-  --primary: oklch(0.65 0.25 264); /* Neon purple primary */
-  --primary-foreground: oklch(0.98 0 0); /* White text on primary */
-  --secondary: oklch(0.7 0.2 200); /* Neon blue secondary */
-  --secondary-foreground: oklch(0.98 0 0); /* White text on secondary */
-  --muted: oklch(0.22 0.02 264); /* Muted background */
-  --muted-foreground: oklch(0.7 0 0); /* Muted text */
-  --accent: oklch(0.7 0.2 200); /* Neon blue accent */
-  --accent-foreground: oklch(0.98 0 0); /* White text on accent */
-  --destructive: oklch(0.6 0.25 15); /* Red for errors */
-  --destructive-foreground: oklch(0.98 0 0); /* White text on destructive */
-  --border: oklch(0.25 0.02 264); /* Border color */
-  --input: oklch(0.18 0.02 264); /* Input background */
-  --ring: oklch(0.65 0.25 264 / 0.5); /* Focus ring */
-  --chart-1: oklch(0.65 0.25 264); /* Chart colors */
+
+  --background: oklch(0.12 0.02 264); 
+  --foreground: oklch(0.98 0 0); 
+  --card: oklch(0.16 0.02 264); 
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.16 0.02 264); 
+  --popover-foreground: oklch(0.98 0 0); 
+  --primary: oklch(0.65 0.25 264); 
+  --primary-foreground: oklch(0.98 0 0); 
+  --secondary: oklch(0.7 0.2 200); 
+  --secondary-foreground: oklch(0.98 0 0); 
+  --muted: oklch(0.22 0.02 264); 
+  --muted-foreground: oklch(0.7 0 0); 
+  --accent: oklch(0.7 0.2 200); 
+  --accent-foreground: oklch(0.98 0 0); 
+  --destructive: oklch(0.6 0.25 15); 
+  --destructive-foreground: oklch(0.98 0 0); 
+  --border: oklch(0.25 0.02 264); 
+  --input: oklch(0.18 0.02 264); 
+  --ring: oklch(0.65 0.25 264 / 0.5); 
+  --chart-1: oklch(0.65 0.25 264); 
   --chart-2: oklch(0.7 0.2 200);
   --chart-3: oklch(0.6 0.25 15);
   --chart-4: oklch(0.75 0.2 60);
   --chart-5: oklch(0.65 0.2 120);
-  --radius: 0.75rem; /* Larger radius for modern look */
+  --radius: 0.75rem; 
   --sidebar: oklch(0.14 0.02 264);
   --sidebar-foreground: oklch(0.98 0 0);
   --sidebar-primary: oklch(0.65 0.25 264);
@@ -41,7 +41,6 @@
 }
 
 .dark {
-  /* Dark mode uses same tokens since we're designing for dark-first */
   --background: oklch(0.12 0.02 264);
   --foreground: oklch(0.98 0 0);
   --card: oklch(0.16 0.02 264);
@@ -123,18 +122,15 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-space-grotesk), sans-serif !important;
-    /* Added subtle Web3 background pattern */
     background-image: radial-gradient(circle at 25% 25%, oklch(0.65 0.25 264 / 0.05) 0%, transparent 50%),
       radial-gradient(circle at 75% 75%, oklch(0.7 0.2 200 / 0.05) 0%, transparent 50%);
   }
   
-  /* Ensure Space Grotesk is applied to all text elements */
   h1, h2, h3, h4, h5, h6, p, span, div, button, input, textarea, label {
     font-family: var(--font-space-grotesk), sans-serif !important;
   }
 }
 
-/* Added Web3-specific utility classes */
 @layer utilities {
   .glow-primary {
     box-shadow: 0 0 20px oklch(0.65 0.25 264 / 0.3);
