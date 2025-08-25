@@ -53,19 +53,19 @@ type HistoryItem = {
 }
 
 export default function Web3MessageApp() {
-  // Dynamic.xyz hooks
+
   const { user, primaryWallet, handleLogOut } = useDynamicContext()
   const { connectWithEmail, verifyOneTimePassword } = useConnectWithOtp()
   const isLoggedIn = useIsLoggedIn()
 
-  // Authentication state
+
   const [email, setEmail] = useState("")
   const [otp, setOtp] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [showOtpInput, setShowOtpInput] = useState(false)
   const [backendHealthy, setBackendHealthy] = useState(false)
 
-  // Message and signing state
+
   const [message, setMessage] = useState("")
   const [isMessageValid, setIsMessageValid] = useState(false)
   const [showSigningModal, setShowSigningModal] = useState(false)
@@ -73,7 +73,7 @@ export default function Web3MessageApp() {
   const [signature, setSignature] = useState("")
   const [isSubmittingToBackend, setIsSubmittingToBackend] = useState(false)
 
-  // Results and history
+
   const [submissionResult, setSubmissionResult] = useState<{
     isValid: boolean
     signerAddress: string
@@ -87,12 +87,12 @@ export default function Web3MessageApp() {
   const [selectedHistoryItem, setSelectedHistoryItem] = useState<HistoryItem | null>(null)
   const [showHistoryModal, setShowHistoryModal] = useState(false)
 
-  // Check backend health on load
+
   useEffect(() => {
     checkBackendHealth().then(setBackendHealthy)
   }, [])
 
-  // Load signature history from localStorage
+
   useEffect(() => {
     const savedHistory = localStorage.getItem("web3-signature-history")
     if (savedHistory) {
@@ -105,7 +105,6 @@ export default function Web3MessageApp() {
     }
   }, [])
 
-  // Save signature history to localStorage
   useEffect(() => {
     if (signatureHistory.length > 0) {
       localStorage.setItem("web3-signature-history", JSON.stringify(signatureHistory))
@@ -196,12 +195,12 @@ export default function Web3MessageApp() {
     setSignature("")
     setSubmissionResult(null)
 
-    // Sign the message with real wallet
+   
     signMessageWithWallet(primaryWallet, message)
       .then((result) => {
         setSignature(result.signature)
         setIsSigningInProgress(false)
-        // Force modal to reopen after Dynamic's modal closes
+       
         setTimeout(() => {
           setShowSigningModal(true)
         }, 100)
@@ -224,7 +223,7 @@ export default function Web3MessageApp() {
       const result = await verifySignatureWithAPI(message, signature)
       
       setIsSubmittingToBackend(false)
-      setShowSigningModal(false) // Close modal after successful verification
+      setShowSigningModal(false) 
 
       const submissionData = {
         isValid: result.isValid,
@@ -237,7 +236,7 @@ export default function Web3MessageApp() {
 
       setSubmissionResult(submissionData)
 
-      // Add to history
+
       const historyItem: HistoryItem = {
         id: Date.now().toString(),
         ...submissionData,
@@ -253,7 +252,7 @@ export default function Web3MessageApp() {
     } catch (error: any) {
       console.error("Backend verification failed:", error)
       setIsSubmittingToBackend(false)
-      setShowSigningModal(false) // Close modal even on error
+      setShowSigningModal(false) 
       
       const errorData = {
         isValid: false,
@@ -325,7 +324,7 @@ export default function Web3MessageApp() {
     return message.length > maxLength ? message.slice(0, maxLength) + "..." : message
   }
 
-  // Show configuration error or authentication screen if not logged in
+ 
   if (!isLoggedIn) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
@@ -495,7 +494,7 @@ export default function Web3MessageApp() {
     )
   }
 
-  // Dashboard view for authenticated users
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Background decorative elements */}
@@ -860,11 +859,11 @@ export default function Web3MessageApp() {
 
       {/* Signing Modal */}
       <Dialog open={showSigningModal} onOpenChange={(open) => {
-        // If Dynamic modal is causing closure during signing, ignore it
+   
         if (!open && isSigningInProgress) {
           return
         }
-        // Prevent closing if we have a signature but haven't verified yet
+      
         if (!open && signature && !submissionResult && !isSigningInProgress) {
           return
         }
