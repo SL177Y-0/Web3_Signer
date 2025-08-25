@@ -1,4 +1,10 @@
-Dynamic Sdk has a bug for verify code for now , hoping for a fix in future 
+Dynamic Sdk has a bug for verify code for new user , hoping for a fix in future 
+
+---
+
+https://github.com/user-attachments/assets/fe6993c5-62e0-445c-9083-8be0f24d5d8d
+
+---
 
 Live Link -- https://web3-signer-mu.vercel.app/
 
