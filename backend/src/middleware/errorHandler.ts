@@ -33,7 +33,6 @@ export function errorHandler(
     method: req.method
   };
 
-  // Include stack trace only in development
   if (process.env.NODE_ENV === 'development') {
     errorResponse.stack = error.stack;
   }
