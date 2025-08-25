@@ -7,16 +7,16 @@ import { ethers } from 'ethers';
 import { verifySignature } from './utils/signatureVerification';
 import { errorHandler } from './middleware/errorHandler';
 
-// Load environment variables
+
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Security middleware
+
 app.use(helmet());
 
-// CORS configuration - allow frontend to connect
+
 app.use(cors({
   origin: [
     'http://localhost:3000',
@@ -29,7 +29,7 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-// Request logging middleware (development only)
+
 if (process.env.NODE_ENV === 'development') {
   app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
@@ -39,11 +39,11 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-// Body parsing middleware
+
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Health check endpoint
+
 app.get('/health', (req, res) => {
   res.status(200).json({ 
     status: 'OK', 
@@ -52,12 +52,12 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Main signature verification endpoint
+
 app.post('/verify-signature', async (req, res) => {
   try {
     const { message, signature } = req.body;
 
-    // Input validation
+ 
     if (!message || !signature) {
       return res.status(400).json({
         isValid: false,
@@ -76,7 +76,7 @@ app.post('/verify-signature', async (req, res) => {
       });
     }
 
-    // Validate signature format (should start with 0x and be 132 characters long)
+   
     if (!signature.startsWith('0x') || signature.length !== 132) {
       return res.status(400).json({
         isValid: false,
@@ -84,7 +84,7 @@ app.post('/verify-signature', async (req, res) => {
       });
     }
 
-    // Verify the signature using ethers.js
+  
     const verification = await verifySignature(message, signature);
     
     if (verification.isValid) {
@@ -113,7 +113,7 @@ app.post('/verify-signature', async (req, res) => {
   }
 });
 
-// 404 handler for undefined routes
+
 app.use('*', (req, res) => {
   res.status(404).json({
     error: 'Route not found',
@@ -121,15 +121,15 @@ app.use('*', (req, res) => {
   });
 });
 
-// Global error handler
+
 app.use(errorHandler);
 
-// Start server
+
 app.listen(PORT, () => {
-  console.log(`🚀 Web3 Message Signer Backend running on port ${PORT}`);
-  console.log(`🔗 Health check: http://localhost:${PORT}/health`);
-  console.log(`📝 Signature verification: http://localhost:${PORT}/verify-signature`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(` Web3 Message Signer Backend running on port ${PORT}`);
+  console.log(` Health check: http://localhost:${PORT}/health`);
+  console.log(` Signature verification: http://localhost:${PORT}/verify-signature`);
+  console.log(` Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 
 export default app; 
