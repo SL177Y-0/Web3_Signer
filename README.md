@@ -1,3 +1,5 @@
+Live Link -- https://web3-signer-mu.vercel.app/
+
 # Web3 Message Signer & Verifier
 
 A full-stack Web3 application that enables users to authenticate with Dynamic.xyz embedded wallets, sign custom messages, and verify signatures cryptographically.
